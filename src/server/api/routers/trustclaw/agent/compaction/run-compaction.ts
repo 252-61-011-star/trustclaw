@@ -2,6 +2,7 @@
 // Adaptive chunking / staged summarization from openclaw: src/agents/compaction.ts:110-129, 244-305
 // Fallback chain from openclaw: src/agents/compaction.ts:176-242
 import { generateText } from "ai";
+import { resolveLanguageModel } from "~/server/clients/model";
 import { db } from "~/server/clients/db";
 import type { ReconstructedMessage } from "../types";
 import { estimateMessageTokens } from "../context/token-estimation";
@@ -69,9 +70,7 @@ async function summarize(
   conversationText: string,
   previousSummary: string | null,
 ): Promise<string> {
-  const modelString = anthropicModel.startsWith("anthropic/")
-    ? anthropicModel
-    : `anthropic/${anthropicModel}`;
+  const model = resolveLanguageModel(anthropicModel);
 
   const safeConversation = sanitizeString(conversationText);
   const safePreviousSummary = previousSummary ? sanitizeString(previousSummary) : null;
@@ -84,7 +83,7 @@ async function summarize(
   }
 
   const result = await generateText({
-    model: modelString,
+    model,
     system: COMPACTION_SYSTEM_PROMPT,
     messages: [{ role: "user", content: prompt }],
     maxOutputTokens: 4_000,
@@ -117,11 +116,9 @@ async function stagedSummarize(
     firstSummary,
   );
 
-  const mergeModelString = anthropicModel.startsWith("anthropic/")
-    ? anthropicModel
-    : `anthropic/${anthropicModel}`;
+  const mergeModel = resolveLanguageModel(anthropicModel);
   const mergeResult = await generateText({
-    model: mergeModelString,
+    model: mergeModel,
     system: COMPACTION_SYSTEM_PROMPT,
     messages: [
       {

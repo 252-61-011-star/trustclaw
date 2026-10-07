@@ -44,6 +44,9 @@ export const env = createEnv({
     // /api/cron/* endpoints. Vercel auto-injects this when crons are configured
     // in vercel.json; the trustclaw deploy CLI also generates one on first deploy.
     CRON_SECRET: z.string(),
+
+    // Google Gemini / Gemma AI Studio API key
+    GEMINI_API_KEY: z.string().optional(),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url(),
@@ -70,6 +73,7 @@ export const env = createEnv({
         : "closed"),
     RATE_LIMIT_ENABLED: process.env.RATE_LIMIT_ENABLED,
     CRON_SECRET: process.env.CRON_SECRET,
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
 
     // Client URL resolution:
     //  - dev: derive from PORT so `PORT=3001 pnpm dev` just works
