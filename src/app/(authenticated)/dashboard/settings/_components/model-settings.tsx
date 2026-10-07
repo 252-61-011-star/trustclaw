@@ -16,6 +16,26 @@ import {
 
 const MODELS = [
   {
+    value: "gemma-4-31b-it",
+    label: "Gemma 4 31B",
+    description: "Open model, most capable",
+  },
+  {
+    value: "gemini-2.5-flash",
+    label: "Gemini 2.5 Flash",
+    description: "Fast & multimodal",
+  },
+  {
+    value: "gemini-2.5-pro",
+    label: "Gemini 2.5 Pro",
+    description: "Advanced reasoning",
+  },
+  {
+    value: "gemini-1.5-flash",
+    label: "Gemini 1.5 Flash",
+    description: "Lightweight & fast",
+  },
+  {
     value: "claude-opus-4-6",
     label: "Claude Opus 4.6",
     description: "Most capable",
@@ -58,12 +78,12 @@ export function ModelSettings({ currentModel }: ModelSettingsProps) {
       <CardHeader>
         <CardTitle>Model</CardTitle>
         <CardDescription>
-          Choose which Claude model powers your assistant
+          Choose which AI model powers your assistant
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label>Claude Model</Label>
+          <Label>AI Model</Label>
           <Select
             value={selectedModel}
             onValueChange={(val) => {

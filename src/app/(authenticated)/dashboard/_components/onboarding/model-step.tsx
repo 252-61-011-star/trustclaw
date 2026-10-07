@@ -29,7 +29,7 @@ export function ModelStep({
   return (
     <StepLayout
       title="Choose my brain!"
-      subtitle="Which Claude model should power me?"
+      subtitle="Which AI model should power me?"
       onNext={onNext}
       onBack={onBack}
     >

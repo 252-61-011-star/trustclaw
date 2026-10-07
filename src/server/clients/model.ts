@@ -1,8 +1,7 @@
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import type { LanguageModel } from "ai";
 import { env } from "~/env";
 
-export function resolveLanguageModel(modelName?: string): LanguageModel | string {
+export function resolveLanguageModel(modelName?: string) {
   const geminiKey = env.GEMINI_API_KEY ?? process.env.GEMINI_API_KEY;
 
   if (geminiKey) {
@@ -17,10 +16,10 @@ export function resolveLanguageModel(modelName?: string): LanguageModel | string
 
     // If it's a gemma or gemini model, or default
     if (cleanModel.startsWith("gemma") || cleanModel.startsWith("gemini")) {
-      return google(cleanModel) as LanguageModel;
+      return google(cleanModel);
     }
 
-    return google("gemma-4-31b-it") as LanguageModel;
+    return google("gemma-4-31b-it");
   }
 
   const model = modelName ?? "gemma-4-31b-it";

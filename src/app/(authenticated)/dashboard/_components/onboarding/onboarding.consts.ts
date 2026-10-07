@@ -38,6 +38,30 @@ export const CURATED_EMOJIS = [
 
 export const MODELS = [
   {
+    value: "gemma-4-31b-it" as const,
+    label: "Gemma 4 31B",
+    description: "Open model, most capable",
+    cost: "Free",
+  },
+  {
+    value: "gemini-2.5-flash" as const,
+    label: "Gemini 2.5 Flash",
+    description: "Fast & multimodal",
+    cost: "Free",
+  },
+  {
+    value: "gemini-2.5-pro" as const,
+    label: "Gemini 2.5 Pro",
+    description: "Advanced reasoning",
+    cost: "Free",
+  },
+  {
+    value: "gemini-1.5-flash" as const,
+    label: "Gemini 1.5 Flash",
+    description: "Lightweight & fast",
+    cost: "Free",
+  },
+  {
     value: "claude-opus-4-6" as const,
     label: "Claude Opus 4.6",
     description: "Most capable",
