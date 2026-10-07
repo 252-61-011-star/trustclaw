@@ -4,40 +4,6 @@ import { nextCookies } from "better-auth/next-js";
 import { username } from "better-auth/plugins";
 import { db } from "~/server/clients/db";
 import { env } from "~/env";
-import { getRedis, isRedisConfigured } from "./clients/redis";
-import { z } from "zod";
-
-const rateLimitValueSchema = z.object({
-  count: z.coerce.number(),
-  lastRequest: z.coerce.number(),
-});
-
-const redisRateLimitStorage = isRedisConfigured()
-  ? {
-      customStorage: {
-        get: async (key: string) => {
-          const redis = getRedis();
-          const value = redis ? await redis.get(key) : null;
-          const parsedValue = value
-            ? rateLimitValueSchema.parse(JSON.parse(value))
-            : null;
-          return {
-            key,
-            count: parsedValue?.count ?? 0,
-            lastRequest: parsedValue?.lastRequest ?? 0,
-          };
-        },
-        set: async (
-          key: string,
-          value: { count: number; lastRequest: number },
-        ) => {
-          const redis = getRedis();
-          if (!redis) return;
-          await redis.set(key, JSON.stringify(value), "EX", 60);
-        },
-      },
-    }
-  : {};
 
 export const auth = betterAuth({
   secret: env.BETTER_AUTH_SECRET,
@@ -80,7 +46,6 @@ export const auth = betterAuth({
         max: 5,
       },
     },
-    ...redisRateLimitStorage,
   },
   advanced: {
     ipAddress: {
