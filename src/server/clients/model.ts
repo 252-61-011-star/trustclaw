@@ -2,6 +2,7 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import type { LanguageModel } from "ai";
 import { env } from "~/env";
 
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 export function resolveLanguageModel(modelName?: string): LanguageModel | string {
   const geminiKey = env.GEMINI_API_KEY ?? process.env.GEMINI_API_KEY;
 
