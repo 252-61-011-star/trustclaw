@@ -43,6 +43,10 @@ export const auth = betterAuth({
   secret: env.BETTER_AUTH_SECRET,
   baseURL: env.NEXT_PUBLIC_APP_URL,
   trustedOrigins: [
+    "https://*.vercel.app",
+    "https://*.vercel.sh",
+    "http://localhost:3000",
+    "http://localhost:3001",
     env.NEXT_PUBLIC_APP_URL,
     ...(process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? [`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`]
