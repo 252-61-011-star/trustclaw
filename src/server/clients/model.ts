@@ -2,7 +2,6 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import type { LanguageModel } from "ai";
 import { env } from "~/env";
 
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 export function resolveLanguageModel(modelName?: string): LanguageModel | string {
   const geminiKey = env.GEMINI_API_KEY ?? process.env.GEMINI_API_KEY;
 
@@ -18,10 +17,10 @@ export function resolveLanguageModel(modelName?: string): LanguageModel | string
 
     // If it's a gemma or gemini model, or default
     if (cleanModel.startsWith("gemma") || cleanModel.startsWith("gemini")) {
-      return google(cleanModel);
+      return google(cleanModel) as LanguageModel;
     }
 
-    return google("gemma-4-31b-it");
+    return google("gemma-4-31b-it") as LanguageModel;
   }
 
   const model = modelName ?? "gemma-4-31b-it";
