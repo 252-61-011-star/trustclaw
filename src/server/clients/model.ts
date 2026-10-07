@@ -3,13 +3,13 @@ import type { LanguageModel } from "ai";
 import { env } from "~/env";
 
 export function resolveLanguageModel(modelName?: string): LanguageModel | string {
-  const geminiKey = env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+  const geminiKey = env.GEMINI_API_KEY ?? process.env.GEMINI_API_KEY;
 
   if (geminiKey) {
     const google = createGoogleGenerativeAI({
       apiKey: geminiKey,
     });
-    const targetModel = modelName || "gemma-4-31b-it";
+    const targetModel = modelName ?? "gemma-4-31b-it";
     const cleanModel = targetModel
       .replace(/^google\//, "")
       .replace(/^anthropic\//, "")
@@ -23,7 +23,7 @@ export function resolveLanguageModel(modelName?: string): LanguageModel | string
     return google("gemma-4-31b-it");
   }
 
-  const model = modelName || "gemma-4-31b-it";
+  const model = modelName ?? "gemma-4-31b-it";
   if (model.includes("/")) return model;
   return `anthropic/${model}`;
 }
